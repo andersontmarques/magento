@@ -33,7 +33,7 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     {
         return Mage::getSingleton('checkout/session');
     }
-    
+
     /**
      * Get the Order of Checkout
      */
@@ -41,7 +41,7 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     {
         return Mage::getModel('sales/order')->load($this->getCheckout()->getLastOrderId());
     }
-    
+
     /**
      * Get PagSeguro Model instance
      */
@@ -49,7 +49,7 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     {
         return Mage::getSingleton('PagSeguro_PagSeguro_Model_PaymentMethod'); //Model
     }
-    
+
     /**
      * Get PagSeguro Model instance
      */
@@ -57,19 +57,19 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     {
         return Mage::getSingleton('PagSeguro_PagSeguro_Model_Geral'); //Model
     }
-	
+
     public function paymentAction()
     {
         $this->loadLayout();
         $this->renderLayout();
     }
-    
+
     /**
      * Process the payment request and redirect to PagSeguro Gateway
      */
     public function requestAction()
     {
-    	
+
         $Order = $this->getOrder();
         
         $PagSeguroPaymentModel = $this->getPagSeguroPaymentModel();
@@ -107,14 +107,14 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
         }
         
     }
-    
+
     private function getRedirectCheckout()
     {
     	$idStore = Mage::app()->getStore()->getCode();
     	Mage::log("ID_DA_LOJA:".$idStore);
     	return Mage::getStoreConfig('payment/pagseguro/checkout', $idStore);
     }
-    
+
     private function _canceledStatus($Order)
     {
         $Order->cancel();
