@@ -67,46 +67,41 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     /**
      * Process the payment request and redirect to PagSeguro Gateway
      */
-    public function requestAction()
-    {
+		public function requestAction() {
 
-        $Order = $this->getOrder();
-        
-        $PagSeguroPaymentModel = $this->getPagSeguroPaymentModel();
-        $enabledOSC = false;
-        $fileOSC = scandir(getcwd().'/app/code/local/DeivisonArthur');
-        
-        if($fileOSC) {
-            $enabledOSC = Mage::helper('onepagecheckout')->isOnepageCheckoutEnabled();
-        }
-            
+		$Order = $this->getOrder();
+
+		$PagSeguroPaymentModel = $this->getPagSeguroPaymentModel();
+		$enabledOSC = false;
+		$fileOSC = scandir(getcwd().'/app/code/local/DeivisonArthur');
+
+		if ($fileOSC) {
+			$enabledOSC = Mage::helper('onepagecheckout')->isOnepageCheckoutEnabled();
+		}
+
         $feedback = ($enabledOSC == false ? 'checkout/onepage' : 'onepagecheckout');
 
-        if (($Order->getState() == Mage_Sales_Model_Order::STATE_NEW) and
-            ($Order->getPayment()->getMethod() == $PagSeguroPaymentModel->getCode()) and
-            ($Order->getId())) {
-            
-            try {
+		if (($Order->getState() == Mage_Sales_Model_Order::STATE_NEW) and
+			($Order->getPayment()->getMethod() == $PagSeguroPaymentModel->getCode()) and
+			($Order->getId())) {
 
-                $PagSeguroPaymentModel->setOrder($Order);
-            	$this->_redirectUrl($PagSeguroPaymentModel->getRedirectPaymentHtml($Order));
-                
-            } catch (Exception $ex) {
-                Mage::log($ex->getMessage());
-                Mage::getSingleton('core/session')->addError(self::MENSAGEM);
-                
+			try {
+				$PagSeguroPaymentModel->setOrder($Order);
+				$this->_redirectUrl($PagSeguroPaymentModel->getRedirectPaymentHtml($Order));
+			} catch (Exception $ex) {
+				Mage::log($ex->getMessage());
+				Mage::getSingleton('core/session')->addError(self::MENSAGEM);
+
 				$this->_redirectUrl(Mage::getUrl() . $feedback);
-                $this->_canceledStatus($Order);
-            }
-            
-        } else {
-        	Mage::getSingleton('core/sessio$canceled')->addError(self::MENSAGEM);
-			
-			$this->_redirectUrl(Mage::getUrl() . $feedback);
-            $this->_canceledStatus($Order);
-        }
-        
-    }
+				$this->_canceledStatus($Order);
+			}
+		} else {
+			Mage::getSingleton('core/sessio$canceled')->addError(self::MENSAGEM);
+
+        	$this->_redirectUrl(Mage::getUrl() . $feedback);
+			$this->_canceledStatus($Order);
+		}
+	}
 
     private function getRedirectCheckout()
     {
