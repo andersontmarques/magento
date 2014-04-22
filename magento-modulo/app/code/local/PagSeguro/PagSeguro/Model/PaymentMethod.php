@@ -100,7 +100,7 @@ class PagSeguro_PagSeguro_Model_PaymentMethod extends MethodAbstract
         
         $checkout = $this->getRedirectCheckout();
         
-        if($checkout == 'LIGHTBOX') {
+        if ($checkout == 'LIGHTBOX') {
             $code = $this->base64url_encode($payment_url);
             
             return Mage::getUrl('pagseguro/payment/payment',array(
@@ -238,24 +238,24 @@ class PagSeguro_PagSeguro_Model_PaymentMethod extends MethodAbstract
     private function getShippingInformation()
     {
 
-    	$fileOSC = scandir(getcwd().'/app/code/local/DeivisonArthur');
-    	
-    	$street = "";
-    	$number = "";
-    	$complement = "";
-    	$complement = "";
-    	
-    	if (!$fileOSC) {
-    		
-	        $fullAddress = $this->_addressConfig($this->Shipping_Data['street']);
-	
-	        $street = $fullAddress[0] != '' ? $fullAddress[0] : $this->_addressConfig($this->Shipping_Data['street']);
-	        $number = is_null($fullAddress[1]) ? '' : $fullAddress[1];
-	        $complement = is_null($fullAddress[2]) ? '' : $fullAddress[2];
-	        $complement = is_null($fullAddress[3]) ? '' : $fullAddress[3];
-    	
-    	}
-    	
+        $fileOSC = scandir(getcwd().'/app/code/local/DeivisonArthur');
+
+        $street = "";
+        $number = "";
+        $complement = "";
+        $complement = "";
+
+        if (!$fileOSC) {
+
+            $fullAddress = $this->_addressConfig($this->Shipping_Data['street']);
+    
+            $street = $fullAddress[0] != '' ? $fullAddress[0] : $this->_addressConfig($this->Shipping_Data['street']);
+            $number = is_null($fullAddress[1]) ? '' : $fullAddress[1];
+            $complement = is_null($fullAddress[2]) ? '' : $fullAddress[2];
+            $complement = is_null($fullAddress[3]) ? '' : $fullAddress[3];
+        
+        }
+        
         $PagSeguroShipping = new PagSeguroShipping();
 
         $PagSeguroAddress = new PagSeguroAddress();
@@ -345,7 +345,7 @@ class PagSeguro_PagSeguro_Model_PaymentMethod extends MethodAbstract
     
     private function getRedirectCheckout()
     {
-    	return $this->getConfigData('checkout');
+        return $this->getConfigData('checkout');
     }
 
     /**

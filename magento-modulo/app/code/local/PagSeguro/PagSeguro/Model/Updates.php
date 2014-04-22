@@ -30,15 +30,15 @@ class Updates
             }
         }
         
-    	// Adiciona os templates e skin necessÃ¡rios para o funcionamento do lighbox
-    	$sql = "SELECT value FROM ". $table_prefix ."core_config_data WHERE path =";
+        // Adiciona os templates e skin necessÃ¡rios para o funcionamento do lighbox
+        $sql = "SELECT value FROM ". $table_prefix ."core_config_data WHERE path =";
         $sqlTemplate = $sql. "'design/theme/template'";
         $connectionTemplate = Mage::getSingleton('core/resource')->getConnection('core_read')->fetchOne($sqlTemplate);
 
-		if($connectionTemplate != 'pagseguro') {
-			$sql = "INSERT INTO " . $table_prefix . "core_config_data (path, value) VALUES('design/theme/template' , 'pagseguro') 	ON DUPLICATE KEY UPDATE path = 'design/theme/template', VALUE = 'pagseguro'";
-	        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
-	        $connection->query($sql);
-		}
+        if($connectionTemplate != 'pagseguro') {
+            $sql = "INSERT INTO " . $table_prefix . "core_config_data (path, value) VALUES('design/theme/template' , 'pagseguro')     ON DUPLICATE KEY UPDATE path = 'design/theme/template', VALUE = 'pagseguro'";
+            $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $connection->query($sql);
+        }
     }
 }
