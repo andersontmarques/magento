@@ -21,7 +21,8 @@
 class PagSeguro_PagSeguro_Block_Payment extends Mage_Core_Block_Template
 {
 
-    protected function getConvertCode() {
+    protected function getConvertCode()
+    {
         $code = $this->getRequest()->getParam("code");
         $payment_url = $this->base64url_decode($code);
         $resultado = parse_url($payment_url);
@@ -30,7 +31,8 @@ class PagSeguro_PagSeguro_Block_Payment extends Mage_Core_Block_Template
         return array('code' => $code, 'urlCompleta' => $payment_url);
     }
 
-    private function base64url_decode($b64Text) {
+    private function base64url_decode($b64Text)
+    {
         return base64_decode(strtr($b64Text, '-_,', '+/='));
     }
 

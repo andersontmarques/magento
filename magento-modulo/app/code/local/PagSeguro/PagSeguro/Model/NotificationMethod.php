@@ -146,7 +146,8 @@ class PagSeguro_PagSeguro_Model_NotificationMethod extends MethodAbstract
         }
     }
    
-    private function _insertCode() {
+    private function _insertCode()
+    {
         $table_prefix = (string)Mage::getConfig()->getTablePrefix();
         $read= Mage::getSingleton('core/resource')->getConnection('core_read');
         $value = $read->query("SELECT `order_id` FROM `" . $table_prefix . "pagseguro_sales_code` WHERE `order_id` = $this->reference");

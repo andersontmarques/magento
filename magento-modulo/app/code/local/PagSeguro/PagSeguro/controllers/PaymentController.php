@@ -67,7 +67,8 @@ class PagSeguro_PagSeguro_PaymentController extends FrontAction
     /**
      * Process the payment request and redirect to PagSeguro Gateway
      */
-    public function requestAction() {
+    public function requestAction()
+    {
 
         $Order = $this->getOrder();
     
